@@ -1,50 +1,34 @@
-import java.util.ArrayDeque;
-import java.util.Deque;
 import java.util.Scanner;
 
-public class UseCase9PalindromeCheckerApp {
+public class UseCase10PalindromeCheckerApp {
 
-    // Method to check palindrome using Deque
-    public static boolean isPalindrome(String input) {
+    public static boolean isPalindrome(String str) {
+        int start = 0;
+        int end = str.length() - 1;
 
-        Deque<Character> deque = new ArrayDeque<>();
-
-        // Insert characters into deque
-        for (int i = 0; i < input.length(); i++) {
-            deque.addLast(input.charAt(i));
-        }
-
-        // Compare front and rear characters
-        while (deque.size() > 1) {
-            char front = deque.removeFirst();
-            char rear = deque.removeLast();
-
-            if (front != rear) {
+        while (start < end) {
+            if (str.charAt(start) != str.charAt(end))
                 return false;
-            }
+            start++;
+            end--;
         }
 
         return true;
     }
 
     public static void main(String[] args) {
-
-        Scanner scanner = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
 
         System.out.print("Enter a string: ");
-        String input = scanner.nextLine();
+        String input = sc.nextLine();
 
-        // Convert to lowercase and remove spaces (optional improvement)
         input = input.replaceAll("\\s+", "").toLowerCase();
 
-        boolean result = isPalindrome(input);
-
-        if (result) {
+        if (isPalindrome(input))
             System.out.println("The given string is a Palindrome.");
-        } else {
+        else
             System.out.println("The given string is NOT a Palindrome.");
-        }
 
-        scanner.close();
+        sc.close();
     }
 }
