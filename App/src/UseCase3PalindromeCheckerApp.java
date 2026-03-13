@@ -1,40 +1,50 @@
-import java.util.Stack;
-import java.util.Queue;
-import java.util.LinkedList;
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.Scanner;
 
-public class UseCase6PalindromeCheckerApp {
+public class UseCase7PalindromeCheckerApp {
 
-    public static void main(String[] args) {
+    // Method to check palindrome using Deque
+    public static boolean isPalindrome(String input) {
 
-        // Original string
-        String word = "level";
+        Deque<Character> deque = new ArrayDeque<>();
 
-        // Create Stack and Queue
-        Stack<Character> stack = new Stack<>();
-        Queue<Character> queue = new LinkedList<>();
-
-        // Push to stack and enqueue to queue
-        for (int i = 0; i < word.length(); i++) {
-            char ch = word.charAt(i);
-            stack.push(ch);      // LIFO
-            queue.add(ch);       // FIFO
+        // Insert characters into deque
+        for (int i = 0; i < input.length(); i++) {
+            deque.addLast(input.charAt(i));
         }
 
-        boolean isPalindrome = true;
+        // Compare front and rear characters
+        while (deque.size() > 1) {
+            char front = deque.removeFirst();
+            char rear = deque.removeLast();
 
-        // Compare dequeue (queue) with pop (stack)
-        while (!stack.isEmpty() && !queue.isEmpty()) {
-            if (stack.pop() != queue.remove()) {
-                isPalindrome = false;
-                break;
+            if (front != rear) {
+                return false;
             }
         }
 
-        // Print result
-        if (isPalindrome) {
-            System.out.println(word + " is a Palindrome.");
+        return true;
+    }
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter a string: ");
+        String input = scanner.nextLine();
+
+        // Convert to lowercase and remove spaces (optional improvement)
+        input = input.replaceAll("\\s+", "").toLowerCase();
+
+        boolean result = isPalindrome(input);
+
+        if (result) {
+            System.out.println("The given string is a Palindrome.");
         } else {
-            System.out.println(word + " is not a Palindrome.");
+            System.out.println("The given string is NOT a Palindrome.");
         }
+
+        scanner.close();
     }
 }
